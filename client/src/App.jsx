@@ -79,6 +79,8 @@ const App = () => {
             <Route path="/shipping-policy" element={<ShippingPolicy />} />
             <Route path="/returns" element={<Returns />} />
             <Route path="/track" element={<TrackOrder />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/reset-password/:token" element={<ResetPassword />} />
             <Route path="/payment/verify" element={<PaymentVerify />} />
             <Route path="/confirm-delivery/:trackingId" element={<ConfirmDelivery />} />
             
