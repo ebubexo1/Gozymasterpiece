@@ -5,7 +5,7 @@ require('dotenv').config();
 
 const app = express();
 
-app.use(cors({ origin: 'http://localhost:5173', credentials: true }));
+app.use(cors({ origin: ['http://localhost:5173', 'https://gozymasterpiece.vercel.app'], credentials: true }));
 app.use((req, res, next) => { if (req.originalUrl === "/api/payments/webhook") { let data = ""; req.on("data", chunk => { data += chunk; }); req.on("end", () => { req.rawBody = data; req.body = JSON.parse(data); next(); }); } else { express.json()(req, res, next); } });
 app.use('/uploads', express.static('uploads'));
 
