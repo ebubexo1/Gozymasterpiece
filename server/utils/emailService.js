@@ -50,8 +50,6 @@ const sendStatusUpdate = async (email, name, order) => {
   } catch(e) { console.error('Email error:', e.message); }
 };
 
-module.exports = { sendOrderConfirmation, sendPaymentConfirmation, sendStatusUpdate };
-
 const sendPasswordReset = async (email, name, token) => {
   try {
     const resetURL = `${process.env.CLIENT_URL}/reset-password/${token}`;
@@ -59,36 +57,9 @@ const sendPasswordReset = async (email, name, token) => {
       from: `"Gozy Resources" <${process.env.EMAIL_USER}>`,
       to: email,
       subject: 'Reset Your Password - Gozy Resources',
-      html: `
-        <div style="font-family:Georgia,serif;max-width:600px;margin:auto;color:#1a1a1a">
-          <div style="background:#001F3F;padding:30px;text-align:center">
-            <h1 style="color:#D4AF37;margin:0">GOZY RESOURCES</h1>
-          </div>
-          <div style="padding:30px">
-            <h2 style="color:#001F3F">Hi ${name},</h2>
-            <p>You requested a password reset. Click the button below to reset your password.</p>
-            <div style="text-align:center;margin:30px 0">
-              <a href="${resetURL}" style="background:#001F3F;color:#D4AF37;padding:14px 30px;text-decoration:none;font-size:14px;letter-spacing:2px;text-transform:uppercase">Reset Password</a>
-            </div>
-            <p style="font-size:13px;color:#666">This link expires in 1 hour. If you didn't request this, ignore this email.</p>
-          </div>
-        </div>
-      `
+      html: `<div style="font-family:Georgia,serif;max-width:600px;margin:auto"><div style="background:#001F3F;padding:30px;text-align:center"><h1 style="color:#D4AF37;margin:0">GOZY RESOURCES</h1></div><div style="padding:30px"><h2 style="color:#001F3F">Hi ${name},</h2><p>You requested a password reset. Click the button below.</p><div style="text-align:center;margin:30px 0"><a href="${resetURL}" style="background:#001F3F;color:#D4AF37;padding:14px 30px;text-decoration:none;font-size:14px;letter-spacing:2px;text-transform:uppercase">Reset Password</a></div><p style="font-size:13px;color:#666">This link expires in 1 hour.</p></div></div>`
     });
   } catch(e) { console.error('Reset email error:', e.message); }
 };
 
 module.exports = { sendOrderConfirmation, sendPaymentConfirmation, sendStatusUpdate, sendPasswordReset };
-
-
-cat > routes/auth.js << 'EOF'
-const express = require('express');
-const router = express.Router();
-const { register, login, getMe, forgotPassword, resetPassword } = require('../controllers/authController');
-const protect = require('../middleware/auth');
-router.post('/register', register);
-router.post('/login', login);
-router.get('/me', protect, getMe);
-router.post('/forgot-password', forgotPassword);
-router.post('/reset-password', resetPassword);
-module.exports = router;
