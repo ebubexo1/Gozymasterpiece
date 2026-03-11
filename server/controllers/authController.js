@@ -64,3 +64,26 @@ const resetPassword = async (req, res) => {
 };
 
 module.exports = { register, login, getMe, forgotPassword, resetPassword };
+
+const googleAuth = async (req, res) => {
+  try {
+    const { access_token } = req.body;
+    const response = await fetch(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${access_token}`);
+    const googleUser = await response.json();
+    if (!googleUser.email) return res.status(400).json({ message: 'Google auth failed' });
+    let user = await User.findOne({ email: googleUser.email });
+    if (!user) {
+      user = await User.create({
+        name: googleUser.name,
+        email: googleUser.email,
+        password: Math.random().toString(36).slice(-8) + Math.random().toString(36).slice(-8),
+        googleId: googleUser.id
+      });
+    }
+    res.json({ _id: user._id, name: user.name, email: user.email, role: user.role, token: generateToken(user._id) });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+module.exports = { register, login, getMe, forgotPassword, resetPassword, googleAuth };

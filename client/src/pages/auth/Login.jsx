@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import { useGoogleLogin } from '@react-oauth/google';
 import Button from '../../components/common/Button';
 import Input from '../../components/common/Input';
 
@@ -38,6 +39,28 @@ const Login = () => {
     }
   };
 
+  const googleLogin = useGoogleLogin({
+    onSuccess: async (tokenResponse) => {
+      try {
+        const res = await fetch(`${API_URL}/auth/google`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ access_token: tokenResponse.access_token })
+        });
+        const data = await res.json();
+        if (res.ok) {
+          login(data);
+          navigate('/');
+        } else {
+          setError(data.message);
+        }
+      } catch (error) {
+        setError('Google login failed. Please try again.');
+      }
+    },
+    onError: () => setError('Google login failed. Please try again.')
+  });
+
   return (
     <div className="min-h-[60vh] flex items-center justify-center px-4">
       <div className="max-w-sm w-full">
@@ -54,6 +77,18 @@ const Login = () => {
             {loading ? 'Signing in...' : 'Sign In'}
           </Button>
         </form>
+        <div className="flex items-center my-4">
+          <div className="flex-1 border-t border-gray-200"></div>
+          <span className="px-3 text-sm text-gray-400">or</span>
+          <div className="flex-1 border-t border-gray-200"></div>
+        </div>
+        <button
+          onClick={() => googleLogin()}
+          className="w-full flex items-center justify-center gap-3 border border-gray-300 rounded px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 transition"
+        >
+          <img src="https://www.google.com/favicon.ico" alt="Google" className="w-5 h-5" />
+          Continue with Google
+        </button>
         <p className="text-center text-sm text-slate-500 mt-6">
           Don't have an account? <Link to="/signup" className="text-[#001F3F] font-medium hover:text-[#D4AF37]">Sign up</Link>
         </p>

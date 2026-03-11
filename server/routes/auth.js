@@ -8,3 +8,4 @@ router.get('/me', protect, getMe);
 router.post('/forgot-password', forgotPassword);
 router.post('/reset-password', resetPassword);
 module.exports = router;
+router.post('/google', require('../controllers/authController').googleAuth);
