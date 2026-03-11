@@ -18,6 +18,8 @@ import ConfirmDelivery from './pages/public/ConfirmDelivery';
 
 // Auth Pages
 import Login from './pages/auth/Login';
+import ForgotPassword from './pages/auth/ForgotPassword';
+import ResetPassword from './pages/auth/ResetPassword';
 import Signup from './pages/auth/Signup';
 
 // User Pages
