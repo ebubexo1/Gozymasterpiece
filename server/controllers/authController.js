@@ -63,8 +63,6 @@ const resetPassword = async (req, res) => {
   }
 };
 
-module.exports = { register, login, getMe, forgotPassword, resetPassword };
-
 const googleAuth = async (req, res) => {
   try {
     const { access_token } = req.body;
