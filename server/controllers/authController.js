@@ -35,7 +35,7 @@ const forgotPassword = async (req, res) => {
     if (!user) return res.json({ message: 'If an account exists, a reset link has been sent.' });
     const token = crypto.randomBytes(32).toString('hex');
     user.resetToken = token;
-    user.resetTokenExpiry = Date.now() + 3600000;
+    user.resetTokenExpiry = Date.now() + 300000;
     await user.save();
     const { sendPasswordReset } = require('../utils/emailService');
     await sendPasswordReset(email, user.name, token);
