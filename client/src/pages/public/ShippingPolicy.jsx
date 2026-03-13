@@ -18,10 +18,8 @@ const ShippingPolicy = () => {
         <section>
           <h2 className="text-2xl font-serif text-[#001F3F] mb-4">Delivery Timeline</h2>
           <ul className="list-disc pl-6 space-y-2">
-            <li><strong>Lagos:</strong> 1-2 business days</li>
-            <li><strong>Abuja, Port Harcourt, Ibadan:</strong> 2-3 business days</li>
-            <li><strong>Other major cities:</strong> 3-5 business days</li>
-            <li><strong>Remote areas:</strong> 5-7 business days</li>
+            <li><strong>Within Lagos:</strong> 1-2 business days</li>
+            <li><strong>Outside Lagos:</strong> 3-5 business days</li>
           </ul>
           <p className="mt-4">
             Orders are processed within 24 hours. You will receive a tracking number via email once 
@@ -66,12 +64,12 @@ const ShippingPolicy = () => {
         <div className="mt-8 p-6 bg-slate-50 rounded-lg">
           <p className="text-sm">
             For any shipping inquiries, please contact us at{' '}
-            <a href="mailto:support@gozyresources.com" className="text-[#D4AF37] hover:underline">
+            <a href="mailto:gozymasterpiece@gmail.com" className="text-[#D4AF37] hover:underline">
               support@gozyresources.com
             </a>
             {' '}or call{' '}
-            <a href="tel:+2348012345678" className="text-[#D4AF37] hover:underline">
-              +234 801 234 5678
+            <a href="tel:+2348167823409" className="text-[#D4AF37] hover:underline">
+              0816 782 3409 / 0706 371 8709
             </a>
           </p>
         </div>

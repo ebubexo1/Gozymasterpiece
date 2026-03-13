@@ -31,7 +31,6 @@ const Returns = () => {
           <ul className="list-disc pl-6 space-y-2">
             <li>Personalized or customized items</li>
             <li>Items on final sale or clearance</li>
-            <li>Gift cards</li>
             <li>Items damaged due to misuse or negligence</li>
           </ul>
         </section>
@@ -41,19 +40,19 @@ const Returns = () => {
           <ol className="list-decimal pl-6 space-y-3">
             <li>
               <strong>Contact Us:</strong> Email{' '}
-              <a href="mailto:returns@gozyresources.com" className="text-[#D4AF37] hover:underline">
-                returns@gozyresources.com
+              <a href="mailto:gozymasterpiece@gmail.com" className="text-[#D4AF37] hover:underline">
+                gozymasterpiece@gmail.com
               </a>
-              {' '}with your order number and reason for return
+              {' '}with your tracking ID and reason for return
             </li>
             <li>
-              <strong>Receive Authorization:</strong> Wait for our team to send you a Return Authorization (RA) number
+              <strong>Confirm Return:</strong> Our team will verify your tracking ID and approve your return request
             </li>
             <li>
               <strong>Package Item:</strong> Securely pack the item in its original packaging
             </li>
             <li>
-              <strong>Ship Return:</strong> Send to our returns address (provided with RA number)
+              <strong>Ship Return:</strong> Send to our returns address (provided after approval)
             </li>
             <li>
               <strong>Receive Refund:</strong> Refund processed within 5-7 business days after we receive your return
@@ -80,17 +79,6 @@ const Returns = () => {
           </ul>
         </section>
 
-        <section>
-          <h2 className="text-2xl font-serif text-[#001F3F] mb-4">Damaged or Defective Items</h2>
-          <p>
-            If you receive a damaged or defective item, please contact us within 48 hours of delivery. 
-            We will arrange for a replacement or full refund, including return shipping costs.
-          </p>
-          <p className="mt-3">
-            Please include photos of the damage or defect when contacting us.
-          </p>
-        </section>
-
         <div className="mt-8 p-6 bg-slate-50 rounded-lg">
           <h3 className="font-serif text-[#001F3F] mb-3">Need Help?</h3>
           <p className="text-sm">
@@ -98,14 +86,14 @@ const Returns = () => {
           </p>
           <p className="text-sm mt-2">
             Email:{' '}
-            <a href="mailto:returns@gozyresources.com" className="text-[#D4AF37] hover:underline">
-              returns@gozyresources.com
+            <a href="mailto:gozymasterpiece@gmail.com" className="text-[#D4AF37] hover:underline">
+              gozymasterpiece@gmail.com
             </a>
           </p>
           <p className="text-sm">
             Phone:{' '}
-            <a href="tel:+2348012345678" className="text-[#D4AF37] hover:underline">
-              +234 801 234 5678
+            <a href="tel:+2348167823409" className="text-[#D4AF37] hover:underline">
+              0816 782 3409 / 0706 371 8709
             </a>
           </p>
           <p className="text-sm">Hours: Monday - Friday, 9AM - 6PM WAT</p>

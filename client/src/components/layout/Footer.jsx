@@ -65,13 +65,13 @@ const Footer = () => {
             <h4 className="text-sm uppercase tracking-wider font-bold mb-4">Get In Touch</h4>
             <ul className="space-y-2 text-sm text-slate-300">
               <li>
-                <a href="mailto:support@gozyresources.com" className="hover:text-[#D4AF37] transition-colors">
+                <a href="mailto:gozymasterpiece@gmail.com" className="hover:text-[#D4AF37] transition-colors">
                   support@gozyresources.com
                 </a>
               </li>
               <li>
-                <a href="tel:+2348012345678" className="hover:text-[#D4AF37] transition-colors">
-                  +234 801 234 5678
+                <a href="tel:+2348167823409" className="hover:text-[#D4AF37] transition-colors">
+                  0816 782 3409 / 0706 371 8709
                 </a>
               </li>
               <li>Lagos, Nigeria</li>
