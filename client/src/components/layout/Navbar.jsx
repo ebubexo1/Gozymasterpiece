@@ -32,10 +32,10 @@ const Navbar = () => {
 
             {/* Desktop Links */}
             <div className="hidden md:flex space-x-8 items-center">
-              {['Home', 'Shop', 'About', 'Contact'].map((item) => (
+              {['Home', 'Shop', 'About', 'Contact', 'Track'].map((item) => (
                 <Link
                   key={item}
-                  to={item === 'Home' ? '/' : `/${item.toLowerCase()}`}
+                  to={item === 'Home' ? '/' : item === 'Track' ? '/track' : `/${item.toLowerCase()}`}
                   className="text-[11px] uppercase tracking-[0.2em] font-bold text-[#001F3F] hover:text-[#D4AF37] transition-colors"
                 >
                   {item}
