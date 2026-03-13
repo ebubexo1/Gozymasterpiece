@@ -162,13 +162,15 @@ const AdminDashboard = () => {
                     <label className="text-[10px] uppercase tracking-[0.2em] font-bold text-slate-400">Category</label>
                     <select className="w-full px-4 py-3 border border-slate-200 focus:border-[#D4AF37] outline-none" value={newProduct.category} onChange={(e) => setNewProduct({...newProduct, category: e.target.value})} required>
                       <option value="">Select Category</option>
-                      <option value="Bags">Bags</option>
-                      <option value="Belts">Belts</option>
-                      <option value="Boxes">Boxes</option>
-                      <option value="Sunglasses">Sunglasses</option>
-                      <option value="Wallets">Wallets</option>
-                      <option value="Watches">Watches</option>
-                      <option value="Cufflinks">Cufflinks</option><option value="Bangles">Bangles</option>
+                      <option value="Wrist Watches">Wrist Watches</option>
+                      <option value="Sunshades">Sunshades</option>
+                      <option value="Waist Belt">Waist Belt</option>
+                      <option value="Wrist Bangles">Wrist Bangles</option>
+                      <option value="Cufflinks Pen">Cufflinks Pen</option>
+                      <option value="Traveling Luggage">Traveling Luggage</option>
+                      <option value="Duffel Traveling Bag">Duffel Traveling Bag</option>
+                      <option value="Bag Pack">Bag Pack</option>
+                      <option value="Laptop Bag">Laptop Bag</option>
                     </select>
                   </div>
                   <div className="flex flex-col space-y-2">
