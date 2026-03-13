@@ -19,24 +19,13 @@ const Login = () => {
     e.preventDefault();
     setLoading(true);
     setError('');
-    try {
-      const res = await fetch(`${API_URL}/auth/login`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password })
-      });
-      const data = await res.json();
-      if (res.ok) {
-        login(data);
-        navigate(data.role === 'admin' ? '/admin/dashboard' : '/');
-      } else {
-        setError(data.message);
-      }
-    } catch (error) {
-      setError('Failed to connect. Please try again.');
-    } finally {
-      setLoading(false);
+    const result = await login(email, password);
+    if (result.success) {
+      navigate(result.user.role === 'admin' ? '/admin/dashboard' : '/');
+    } else {
+      setError(result.error || 'Invalid email or password');
     }
+    setLoading(false);
   };
 
   const googleLogin = useGoogleLogin({
@@ -49,7 +38,7 @@ const Login = () => {
         });
         const data = await res.json();
         if (res.ok) {
-          login(data);
+          const result = await login(data.email, null, data);
           navigate('/');
         } else {
           setError(data.message);
