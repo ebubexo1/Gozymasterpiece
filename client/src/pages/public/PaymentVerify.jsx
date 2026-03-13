@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSearchParams, useNavigate, Link } from 'react-router-dom';
 import { api } from '../../services/api';
+import { useCart } from '../../context/CartContext';
 
 const PaymentVerify = () => {
   const [searchParams] = useSearchParams();
@@ -9,6 +10,7 @@ const PaymentVerify = () => {
   const [processed, setProcessed] = useState(false);
   const [order, setOrder] = useState(null);
   const [copied, setCopied] = useState(false);
+  const { clearCart } = useCart();
 
   useEffect(() => {
     const verify = async () => {
@@ -30,6 +32,7 @@ const PaymentVerify = () => {
             address: pending.address
           });
           localStorage.removeItem('pendingOrder');
+          clearCart();
           setOrder(createdOrder);
           setStatus('success');
         } else {
@@ -72,10 +75,9 @@ const PaymentVerify = () => {
   return (
     <div className="h-screen flex items-center justify-center px-4">
       <div className="max-w-md w-full text-center">
-        <div className="text-6xl mb-6">ï¿½ï¿½ï¿½</div>
+        <div className="text-6xl mb-6">í¾‰</div>
         <h1 className="text-3xl font-serif text-[#001F3F] mb-2">Order Confirmed!</h1>
         <p className="text-slate-400 mb-8">Thank you for your purchase</p>
-
         <div className="bg-[#001F3F] text-white p-8 mb-6">
           <p className="text-xs uppercase tracking-[0.3em] text-[#D4AF37] mb-3">Your Tracking ID</p>
           <p className="text-3xl font-serif tracking-wider mb-4">{order?.trackingId}</p>
@@ -86,16 +88,13 @@ const PaymentVerify = () => {
             {copied ? 'âœ“ Copied!' : 'Copy Tracking ID'}
           </button>
         </div>
-
         <div className="bg-slate-50 p-4 mb-6 text-left text-sm text-slate-600">
           <p className="font-bold text-[#001F3F] mb-2">Order Summary</p>
           <p>Total: â‚¦{Number(order?.total).toLocaleString()}</p>
           <p>Delivery: {order?.address}</p>
           <p>Phone: {order?.phone}</p>
         </div>
-
         <p className="text-xs text-slate-400 mb-6">Save your tracking ID to track your order at <span className="text-[#D4AF37]">/track</span></p>
-
         <div className="flex gap-3 justify-center">
           <Link to="/shop" className="border border-[#001F3F] text-[#001F3F] px-6 py-3 text-xs uppercase tracking-widest">Continue Shopping</Link>
           <Link to="/user/dashboard" className="bg-[#001F3F] text-white px-6 py-3 text-xs uppercase tracking-widest">My Orders</Link>
