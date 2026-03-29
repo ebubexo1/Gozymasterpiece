@@ -12,7 +12,7 @@ const Home = () => {
     { category: 'Cufflinks Pen', image: '/images/products/cufflink/Cufflink.jpg', description: 'Luxury cufflinks pen' },
     { category: 'Traveling Luggage', image: '/images/products/bags/Bag1.jpg', description: 'Premium travel luggage' },
     { category: 'Duffel Traveling Bag', image: '/images/products/Duffel Teavelling Bag/duffel.jpg', description: 'Stylish duffel bags' },
-    { category: 'men purse', image: '/images/products/men purse/men purse.jpg', description: 'Premium backpacks' },
+    { category: 'men purse', image: '/images/products/men purse/men purse.jpg', description: 'Premium men purse' },
     { category: 'Laptop Bag', image: '/images/products/Laptop Bag/laptop bag.jpg', description: 'Professional laptop bags' }
   ];
 

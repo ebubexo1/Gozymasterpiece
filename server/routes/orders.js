@@ -26,3 +26,32 @@ router.post('/:id/confirm-delivery', async (req, res) => {
 });
 
 module.exports = router;
+
+const multer = require('multer');
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
+const cloudinary = require('cloudinary').v2;
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET
+});
+
+const storage = new CloudinaryStorage({
+  cloudinary,
+  params: { folder: 'gozy-proof', allowed_formats: ['jpg', 'jpeg', 'png'] }
+});
+
+const upload = multer({ storage });
+
+router.post('/:id/proof', upload.single('proof'), async (req, res) => {
+  try {
+    const order = await Order.findById(req.params.id);
+    if (!order) return res.status(404).json({ message: 'Order not found' });
+    order.proofOfPayment = req.file.path;
+    await order.save();
+    res.json({ message: 'Proof uploaded successfully', order });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});

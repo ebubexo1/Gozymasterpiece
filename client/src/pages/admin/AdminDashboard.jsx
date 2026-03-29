@@ -253,6 +253,15 @@ const AdminDashboard = () => {
                       </button>
                     </div>
                   </div>
+                  <div className="mt-3">
+                    {order.proofOfPayment ? (
+                      <a href={order.proofOfPayment} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-xs bg-green-50 text-green-700 border border-green-200 px-3 py-1 rounded">
+                        ✅ View Proof of Payment
+                      </a>
+                    ) : order.paymentMethod === 'bank_transfer' ? (
+                      <span className="text-xs text-orange-500 bg-orange-50 border border-orange-200 px-3 py-1 rounded">⏳ Awaiting Proof of Payment</span>
+                    ) : null}
+                  </div>
                   <div className="mt-4 pt-4 border-t border-slate-100">
                     <div className="flex gap-3 flex-wrap">
                       {order.items?.map((item, i) => (
