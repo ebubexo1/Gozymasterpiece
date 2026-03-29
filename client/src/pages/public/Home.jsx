@@ -8,12 +8,12 @@ const Home = () => {
     { category: 'Wrist Watches', image: '/images/products/watches/lux.jpg', description: 'Premium timepieces' },
     { category: 'Sunshades', image: '/images/products/sunglasses/Glass3.jpg', description: 'Stylish sunshades' },
     { category: 'Waist Belt', image: '/images/products/belts/Belt1.jpg', description: 'Designer waist belts' },
-    { category: 'Wrist Bangles', image: '/images/products/wallets/Wallet1.jpg', description: 'Elegant wrist bangles' },
-    { category: 'Cufflinks Pen', image: '/images/products/watches/lux.jpg', description: 'Luxury cufflinks pen' },
+    { category: 'Wrist Bangles', image: '/images/products/Bangles/bangle.jpg', description: 'Elegant wrist bangles' },
+    { category: 'Cufflinks Pen', image: '/images/products/cufflink/Cufflink.jpg', description: 'Luxury cufflinks pen' },
     { category: 'Traveling Luggage', image: '/images/products/bags/Bag1.jpg', description: 'Premium travel luggage' },
-    { category: 'Duffel Traveling Bag', image: '/images/products/bags/Bag1.jpg', description: 'Stylish duffel bags' },
-    { category: 'Bag Pack', image: '/images/products/bags/Bag1.jpg', description: 'Premium backpacks' },
-    { category: 'Laptop Bag', image: '/images/products/bags/Bag1.jpg', description: 'Professional laptop bags' }
+    { category: 'Duffel Traveling Bag', image: '/images/products/Duffel Teavelling Bag/duffel.jpg', description: 'Stylish duffel bags' },
+    { category: 'men purse', image: '/images/products/men purse/men purse.jpg', description: 'Premium backpacks' },
+    { category: 'Laptop Bag', image: '/images/products/Laptop Bag/laptop bag.jpg', description: 'Professional laptop bags' }
   ];
 
   return (
@@ -81,14 +81,14 @@ const Home = () => {
             </div>
             <div className="text-center p-6">
               <div className="w-16 h-16 bg-[#D4AF37] rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl">í´’</span>
+                <span className="text-2xl">ï¿½ï¿½ï¿½</span>
               </div>
               <h3 className="text-lg font-serif text-[#001F3F] mb-3">Secure Payment</h3>
               <p className="text-slate-600 text-sm">Safe transactions with Paystack - Nigeria's trusted payment platform</p>
             </div>
             <div className="text-center p-6">
               <div className="w-16 h-16 bg-[#D4AF37] rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl">íºš</span>
+                <span className="text-2xl">ï¿½ï¿½ï¿½</span>
               </div>
               <h3 className="text-lg font-serif text-[#001F3F] mb-3">Fast Delivery</h3>
               <p className="text-slate-600 text-sm">Quick and reliable nationwide delivery to your doorstep</p>
