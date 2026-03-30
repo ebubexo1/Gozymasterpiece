@@ -1,11 +1,13 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ShoppingBag } from 'lucide-react';
+import { ShoppingBag, Heart } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../../context/CartContext';
+import { useWishlist } from '../../context/WishlistContext';
 
 const ProductCard = ({ product }) => {
   const { addToCart } = useCart();
+  const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
   const navigate = useNavigate();
 
   const handleAddToCart = (e) => {
@@ -27,6 +29,7 @@ const ProductCard = ({ product }) => {
     >
       {/* Product Image */}
       <div className="relative aspect-[3/4] overflow-hidden bg-gray-100">
+        <button onClick={(e) => { e.stopPropagation(); isInWishlist(product._id) ? removeFromWishlist(product._id) : addToWishlist(product); }} className="absolute top-3 right-3 z-10 bg-white rounded-full p-2 shadow-md"><Heart size={16} className={isInWishlist(product._id) ? "fill-red-500 text-red-500" : "text-slate-400"} /></button>
         <img 
           src={product.image} 
           alt={product.name} 
