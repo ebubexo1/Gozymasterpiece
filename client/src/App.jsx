@@ -19,6 +19,7 @@ import ConfirmDelivery from './pages/public/ConfirmDelivery';
 // Auth Pages
 import Login from './pages/auth/Login';
 import ForgotPassword from './pages/auth/ForgotPassword';
+import Wishlist from './pages/user/Wishlist';
 import ResetPassword from './pages/auth/ResetPassword';
 import Signup from './pages/auth/Signup';
 
@@ -82,6 +83,7 @@ const App = () => {
             <Route path="/returns" element={<Returns />} />
             <Route path="/track" element={<TrackOrder />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/wishlist" element={<Wishlist />} />
             <Route path="/reset-password/:token" element={<ResetPassword />} />
             <Route path="/payment/verify" element={<PaymentVerify />} />
             <Route path="/confirm-delivery/:trackingId" element={<ConfirmDelivery />} />
