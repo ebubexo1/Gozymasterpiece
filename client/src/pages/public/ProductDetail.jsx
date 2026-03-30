@@ -4,13 +4,19 @@ import { api } from '../../services/api';
 import ProductCard from '../../components/shop/ProductCard';
 import Button from '../../components/common/Button';
 import { useCart } from '../../context/CartContext';
+import { useAuth } from '../../context/AuthContext';
 
 const ProductDetail = () => {
   const { id } = useParams();
   const { addToCart } = useCart();
+  const { user } = useAuth();
   const [product, setProduct] = useState(null);
   const [related, setRelated] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [rating, setRating] = useState(5);
+  const [comment, setComment] = useState("");
+  const [reviewMsg, setReviewMsg] = useState("");
+  const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -27,6 +33,33 @@ const ProductDetail = () => {
     };
     fetchProduct();
   }, [id]);
+
+  
+  const submitReview = async () => {
+    setSubmitting(true);
+    try {
+      const API_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api';
+      const token = localStorage.getItem('token');
+      const res = await fetch(API_URL + '/products/' + id + '/reviews', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + token },
+        body: JSON.stringify({ rating, comment })
+      });
+      const data = await res.json();
+      if (res.ok) {
+        setReviewMsg('Review submitted successfully!');
+        setComment('');
+        const updated = await api.getProduct(id);
+        setProduct(updated);
+      } else {
+        setReviewMsg(data.message);
+      }
+    } catch (e) {
+      setReviewMsg('Failed to submit review');
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   if (loading) return (
     <div className="h-screen flex items-center justify-center text-[#D4AF37] animate-pulse">
@@ -67,6 +100,48 @@ const ProductDetail = () => {
           <div className="pt-4">
             <Button onClick={() => addToCart(product)} variant="primary">Add to Cart</Button>
           </div>
+        </div>
+      </div>
+
+      
+      <div className="mb-20">
+        <div className="mb-8 border-b border-slate-100 pb-4">
+          <h2 className="text-2xl font-serif text-[#001F3F]">Customer Reviews</h2>
+          <p className="text-sm text-slate-400 mt-2">{product.numReviews || 0} reviews</p>
+        </div>
+        {product.reviews && product.reviews.length > 0 ? (
+          <div className="space-y-4 mb-8">
+            {product.reviews.map((review, i) => (
+              <div key={i} className="border border-slate-100 p-4">
+                <div className="flex justify-between items-start mb-2">
+                  <p className="font-bold text-[#001F3F] text-sm">{review.name}</p>
+                  <div className="flex gap-1">
+                    {[1,2,3,4,5].map(star => (
+                      <span key={star} className={star <= review.rating ? 'text-[#D4AF37]' : 'text-slate-300'}>★</span>
+                    ))}
+                  </div>
+                </div>
+                <p className="text-sm text-slate-600">{review.comment}</p>
+              </div>
+            ))}
+          </div>
+        ) : (
+        )}
+        <div className="border border-slate-100 p-6">
+          <h3 className="font-serif text-[#001F3F] mb-4">Write a Review</h3>
+          {reviewMsg && <p className="text-sm mb-4 text-green-600">{reviewMsg}</p>}
+          <div className="mb-4">
+            <p className="text-xs uppercase tracking-widest text-slate-400 mb-2">Rating</p>
+            <div className="flex gap-2">
+              {[1,2,3,4,5].map(star => (
+                <button key={star} onClick={() => setRating(star)} className={star <= rating ? 'text-[#D4AF37] text-2xl' : 'text-slate-300 text-2xl'}>★</button>
+              ))}
+            </div>
+          </div>
+          <textarea value={comment} onChange={(e) => setComment(e.target.value)} placeholder="Share your experience..." className="w-full px-4 py-3 border border-slate-200 focus:border-[#D4AF37] outline-none text-sm mb-4" rows={4} />
+          <button onClick={submitReview} disabled={submitting} className="bg-[#001F3F] text-white px-6 py-3 text-xs uppercase tracking-widest">
+            {submitting ? 'Submitting...' : 'Submit Review'}
+          </button>
         </div>
       </div>
 
