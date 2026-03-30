@@ -1,6 +1,6 @@
 const Order = require('../models/Order');
 const User = require('../models/User');
-const { sendOrderConfirmation, sendStatusUpdate } = require('../utils/emailService');
+const { sendOrderConfirmation, sendStatusUpdate, sendAdminNewOrder } = require('../utils/emailService');
 
 const createOrder = async (req, res) => {
   try {
@@ -15,6 +15,7 @@ const createOrder = async (req, res) => {
     try {
       const user = await User.findById(req.user.id);
       await sendOrderConfirmation(user.email, user.name, order);
+      await sendAdminNewOrder(user.name, user.email, order);
     } catch (emailErr) {
       console.error('Order email failed:', emailErr.message);
     }

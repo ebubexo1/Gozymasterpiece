@@ -55,4 +55,17 @@ const sendPasswordReset = async (email, name, token) => {
   } catch(e) { console.error('Reset email error:', e.message); }
 };
 
-module.exports = { sendOrderConfirmation, sendPaymentConfirmation, sendStatusUpdate, sendPasswordReset };
+
+const sendAdminNewOrder = async (customerName, customerEmail, order) => {
+  try {
+    const itemsHTML = order.items.map(item => `<tr><td style='padding:8px'>${item.name}</td><td style='padding:8px'>${item.quantity}</td><td style='padding:8px'>N${Number(item.price).toLocaleString()}</td></tr>`).join('');
+    await resend.emails.send({
+      from: 'Gozy Resources <onboarding@resend.dev>',
+      to: 'gozymasterpiece@gmail.com',
+      subject: 'New Order - N' + Number(order.total).toLocaleString() + ' from ' + customerName,
+      html: '<div style="font-family:Georgia,serif;max-width:600px;margin:auto"><div style="background:#001F3F;padding:30px;text-align:center"><h1 style="color:#D4AF37;margin:0">NEW ORDER</h1></div><div style="padding:30px"><h2 style="color:#001F3F">From: ' + customerName + '</h2><p>Email: ' + customerEmail + '</p><p>Phone: ' + order.phone + '</p><p>Address: ' + order.address + '</p><p><strong>Tracking ID:</strong> ' + order.trackingId + '</p><p><strong>Payment:</strong> ' + order.paymentMethod + '</p><table style="width:100%;border-collapse:collapse;margin:20px 0">' + itemsHTML + '</table><p style="color:#D4AF37;font-weight:bold;font-size:20px">Total: N' + Number(order.total).toLocaleString() + '</p></div></div>'
+    });
+  } catch(e) { console.error('Admin email error:', e.message); }
+};
+
+module.exports = { sendOrderConfirmation, sendPaymentConfirmation, sendStatusUpdate, sendPasswordReset, sendAdminNewOrder };

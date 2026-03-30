@@ -12,7 +12,7 @@ const orderSchema = new mongoose.Schema({
   customerEmail: { type: String },
   customerName: { type: String } },
   shipping: { company: { type: String }, trackingNumber: { type: String } },
-  reference: { type: String, required: true },
+  reference: { type: String },
   paymentMethod: { type: String },
   address: { type: String },
   phone: { type: String }
