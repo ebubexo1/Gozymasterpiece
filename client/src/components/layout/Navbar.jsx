@@ -9,6 +9,7 @@ const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const { cart, setDrawerOpen } = useCart();
+  const { wishlist } = useWishlist();
   const { user, isAdmin } = useAuth();
   const navigate = useNavigate();
 
