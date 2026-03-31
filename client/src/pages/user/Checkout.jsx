@@ -71,10 +71,23 @@ const Checkout = () => {
   };
 
   if (orderPlaced) {
+    if (uploaded) {
+      return (
+        <div className="max-w-lg mx-auto px-4 py-20 mt-20 text-center">
+          <div className="text-6xl mb-6">�</div>
+          <p className="text-slate-500 mb-6">We have received your proof of payment. Your order will be confirmed shortly.</p>
+          <div className="bg-[#001F3F] text-white p-6 mb-6">
+            <p className="text-xs uppercase tracking-widest text-[#D4AF37] mb-2">Your Tracking ID</p>
+            <p className="text-2xl font-serif text-[#D4AF37] font-bold">{trackingId}</p>
+          </div>
+          <p className="text-sm text-slate-500 mb-8">Save your tracking ID to track your order at <span className="text-[#D4AF37]">/track</span></p>
+          <Link to="/shop" className="bg-[#001F3F] text-white px-8 py-3 uppercase text-xs tracking-widest">Continue Shopping</Link>
+        </div>
+      );
+    }
     return (
       <div className="max-w-lg mx-auto px-4 py-20 mt-20 text-center">
-        <div className="text-6xl mb-6">���</div>
-        <h1 className="text-3xl font-serif text-[#001F3F] mb-4">Order Placed!</h1>
+        <div className="text-6xl mb-6">✅</div>
         <p className="text-slate-500 mb-2">Your Tracking ID:</p>
         <p className="text-2xl font-serif text-[#D4AF37] font-bold mb-8">{trackingId}</p>
         <div className="bg-[#001F3F] text-white p-8 mb-6 text-left">
@@ -84,49 +97,36 @@ const Checkout = () => {
           <p className="mb-2 text-sm">Account Name: <strong>GOZY MASTERPIECE LIMITED</strong></p>
           <p className="mt-4 pt-4 border-t border-slate-600 text-sm">Amount: <strong className="text-[#D4AF37]">₦{total.toLocaleString()}</strong></p>
         </div>
-        <div className="bg-slate-50 p-4 mb-6 text-sm text-slate-600 text-left">
-          <p className="font-bold text-[#001F3F] mb-2">After Payment:</p>
-          <p>Send your proof of payment and tracking ID to:</p>
-          <p className="mt-2">��� <a href="mailto:gozymasterpiece@gmail.com" className="text-[#D4AF37]">gozymasterpiece@gmail.com</a></p>
-          <p>��� <a href="tel:+2348167823409" className="text-[#D4AF37]">08167823409</a> / <a href="tel:+2347063718709" className="text-[#D4AF37]">07063718709</a></p>
+        <div className="bg-slate-50 border border-slate-200 p-6 mb-6 text-left">
+          <p className="font-bold text-[#001F3F] mb-2 text-sm">Upload Proof of Payment</p>
+          <p className="text-xs text-slate-400 mb-4">Upload screenshot of your transfer receipt to confirm your order</p>
+          <input type="file" accept="image/*" onChange={(e) => setProof(e.target.files[0])} className="w-full text-sm mb-4" />
+          <button
+            onClick={async () => {
+              setUploading(true);
+              const formData = new FormData();
+              formData.append('proof', proof);
+              const API_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api';
+              const token = localStorage.getItem('token');
+              await fetch(API_URL + '/orders/' + orderId + '/proof', {
+                method: 'POST',
+                headers: { Authorization: 'Bearer ' + token },
+                body: formData
+              });
+              setUploading(false);
+              setUploaded(true);
+            }}
+            className="bg-[#001F3F] text-white px-6 py-2 text-xs uppercase tracking-widest w-full"
+          >
+            {uploading ? 'Uploading...' : 'Upload Receipt'}
+          </button>
         </div>
-        <div className="mb-6">
-          <div className="bg-slate-50 border border-slate-200 p-6 text-left">
-            <p className="font-bold text-[#001F3F] mb-2 text-sm">Upload Proof of Payment</p>
-            <p className="text-xs text-slate-400 mb-4">Upload screenshot of your transfer receipt</p>
-            <input type="file" accept="image/*" onChange={(e) => setProof(e.target.files[0])} className="w-full text-sm mb-4" />
-            <button
-              onClick={async () => {
-                setUploading(true);
-                const formData = new FormData();
-                formData.append('proof', proof);
-                const API_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api';
-                const token = localStorage.getItem('token');
-                await fetch(`${API_URL}/orders/${orderId}/proof`, {
-                  method: 'POST',
-                  headers: { Authorization: `Bearer ${token}` },
-                  body: formData
-                });
-                setUploading(false);
-                setUploaded(true);
-              }}
-              className="bg-[#001F3F] text-white px-6 py-2 text-xs uppercase tracking-widest w-full"
-            >
-              {uploading ? 'Uploading...' : 'Upload Receipt'}
-            </button>
-          </div>
-        ) : (
-          <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded text-sm">
-            ✅ Proof of payment uploaded successfully!
-          </div>
-        )}
-      </div>
-      <Link to="/shop" className="bg-[#001F3F] text-white px-8 py-3 uppercase text-xs tracking-widest">Continue Shopping</Link>
+        <p className="text-xs text-slate-400">Or send proof to <a href="mailto:gozymasterpiece@gmail.com" className="text-[#D4AF37]">gozymasterpiece@gmail.com</a></p>
       </div>
     );
   }
 
-  if (cart.length === 0) {
+if (cart.length === 0) {
     return (
       <div className="py-20 text-center">
         <h2 className="text-2xl font-serif mb-4">Your bag is empty</h2>
