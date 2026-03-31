@@ -28,7 +28,7 @@ const AdminDashboard = () => {
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [orderFilter, setOrderFilter] = useState('active');
   const [orderUpdate, setOrderUpdate] = useState({ status: '', deliveryType: 'local_dispatch', riderName: '', riderPhone: '', shippingCompany: '', shippingTracking: '' });
-  const [newProduct, setNewProduct] = useState({ name: '', price: '', category: '', description: '', stock: '', image: '' });
+  const [newProduct, setNewProduct] = useState({ name: '', price: '', category: '', description: '', stock: '', image: '', sizes: '', colors: '' });
 
   useEffect(() => { fetchProducts(); fetchOrders(); fetchAnalytics(); }, []);
 
@@ -77,7 +77,7 @@ const AdminDashboard = () => {
     try {
       let imageUrl = newProduct.image;
       if (imageFile) imageUrl = await uploadImage(imageFile);
-      const productData = { ...newProduct, image: imageUrl, price: Number(newProduct.price), stock: Number(newProduct.stock) };
+      const productData = { ...newProduct, image: imageUrl, price: Number(newProduct.price), stock: Number(newProduct.stock), sizes: newProduct.sizes ? newProduct.sizes.split(",").map(s => s.trim()).filter(Boolean) : [], colors: newProduct.colors ? newProduct.colors.split(",").map(c => c.trim()).filter(Boolean) : [] };
       if (editingProduct) { await api.updateProduct(editingProduct._id, productData); alert('Product updated!'); }
       else { await api.createProduct(productData); alert('Product added!'); }
       setNewProduct({ name: '', price: '', category: '', description: '', stock: '', image: '' });
@@ -89,7 +89,7 @@ const AdminDashboard = () => {
 
   const handleEdit = (product) => {
     setEditingProduct(product);
-    setNewProduct({ name: product.name, price: product.price, category: product.category, description: product.description, stock: product.stock, image: product.image });
+    setNewProduct({ name: product.name, price: product.price, category: product.category, description: product.description, stock: product.stock, image: product.image, sizes: product.sizes ? product.sizes.join(", ") : "", colors: product.colors ? product.colors.join(", ") : "" });
     setImagePreview(product.image);
     setShowForm(true);
   };
@@ -181,6 +181,14 @@ const AdminDashboard = () => {
                 <div className="flex flex-col space-y-2">
                   <label className="text-[10px] uppercase tracking-[0.2em] font-bold text-slate-400">Description</label>
                   <textarea rows="3" className="w-full px-4 py-3 border border-slate-200 focus:border-[#D4AF37] outline-none" value={newProduct.description} onChange={(e) => setNewProduct({...newProduct, description: e.target.value})} required />
+                </div>
+                <div className="flex flex-col space-y-2">
+                  <label className="text-[10px] uppercase tracking-[0.2em] font-bold text-slate-400">Sizes (comma separated e.g. S, M, L, XL)</label>
+                  <input type="text" className="w-full px-4 py-3 border border-slate-200 focus:border-[#D4AF37] outline-none" value={newProduct.sizes} onChange={(e) => setNewProduct({...newProduct, sizes: e.target.value})} placeholder="e.g. S, M, L, XL or leave empty" />
+                </div>
+                <div className="flex flex-col space-y-2">
+                  <label className="text-[10px] uppercase tracking-[0.2em] font-bold text-slate-400">Colors (comma separated e.g. Red, Blue, Black)</label>
+                  <input type="text" className="w-full px-4 py-3 border border-slate-200 focus:border-[#D4AF37] outline-none" value={newProduct.colors} onChange={(e) => setNewProduct({...newProduct, colors: e.target.value})} placeholder="e.g. Red, Blue, Black or leave empty" />
                 </div>
                 <div className="flex flex-col space-y-2">
                   <label className="text-[10px] uppercase tracking-[0.2em] font-bold text-slate-400">Product Image</label>

@@ -14,6 +14,8 @@ const productSchema = new mongoose.Schema({
     createdAt: { type: Date, default: Date.now }
   }],
   rating: { type: Number, default: 0 },
-  numReviews: { type: Number, default: 0 }
+  numReviews: { type: Number, default: 0 },
+  sizes: [{ type: String }],
+  colors: [{ type: String }]
 }, { timestamps: true });
 module.exports = mongoose.model('Product', productSchema);

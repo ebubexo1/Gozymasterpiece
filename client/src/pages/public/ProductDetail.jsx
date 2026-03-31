@@ -12,6 +12,8 @@ const ProductDetail = () => {
   const { user } = useAuth();
   const [product, setProduct] = useState(null);
   const [related, setRelated] = useState([]);
+  const [selectedSize, setSelectedSize] = useState("");
+  const [selectedColor, setSelectedColor] = useState("");
   const [loading, setLoading] = useState(true);
   const [rating, setRating] = useState(5);
   const [comment, setComment] = useState("");
@@ -98,7 +100,7 @@ const ProductDetail = () => {
           </div>
           <p className="text-slate-600 leading-relaxed">{product.description}</p>
           <div className="pt-4">
-            <Button onClick={() => addToCart(product)} variant="primary">Add to Cart</Button>
+            <Button onClick={() => addToCart({...product, selectedSize, selectedColor})} variant="primary">Add to Cart</Button>
           </div>
         </div>
       </div>
