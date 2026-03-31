@@ -126,6 +126,7 @@ const ProductDetail = () => {
             ))}
           </div>
         ) : (
+          <p className="text-slate-400 text-sm mb-8">No reviews yet. Be the first!</p>
         )}
         <div className="border border-slate-100 p-6">
           <h3 className="font-serif text-[#001F3F] mb-4">Write a Review</h3>
