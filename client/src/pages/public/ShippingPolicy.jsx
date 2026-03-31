@@ -65,7 +65,7 @@ const ShippingPolicy = () => {
           <p className="text-sm">
             For any shipping inquiries, please contact us at{' '}
             <a href="mailto:gozymasterpiece@gmail.com" className="text-[#D4AF37] hover:underline">
-              support@gozyresources.com
+              support@gozymasterpiece.com
             </a>
             {' '}or call{' '}
             <a href="tel:+2348167823409" className="text-[#D4AF37] hover:underline">

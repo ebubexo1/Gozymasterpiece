@@ -66,7 +66,7 @@ const Footer = () => {
             <ul className="space-y-2 text-sm text-slate-300">
               <li>
                 <a href="mailto:gozymasterpiece@gmail.com" className="hover:text-[#D4AF37] transition-colors">
-                  support@gozyresources.com
+                  support@gozymasterpiece.com
                 </a>
               </li>
               <li>
