@@ -32,7 +32,7 @@ const ShippingPolicy = () => {
           <ul className="list-disc pl-6 space-y-2">
             <li><strong>Free Shipping:</strong> Orders above ₦100,000</li>
             <li><strong>Lagos:</strong> ₦2,500</li>
-            <li><strong>Other States:</strong> ₦3,500 - ₦5,000</li>
+            <li><strong>Other States:</strong> south East ₦4000, South South ₦3,000 South East ₦2,500</li>
           </ul>
         </section>
 
