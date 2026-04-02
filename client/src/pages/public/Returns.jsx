@@ -96,7 +96,7 @@ const Returns = () => {
               0816 782 3409 / 0706 371 8709
             </a>
           </p>
-          <p className="text-sm">Hours: Monday - Friday, 9AM - 6PM WAT</p>
+          <p className="text-sm">Hours: Monday - Saturday, 9AM - 6PM WAT</p>
         </div>
       </div>
     </div>
