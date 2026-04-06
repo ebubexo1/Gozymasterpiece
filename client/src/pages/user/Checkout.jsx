@@ -4,6 +4,35 @@ import { useCart } from '../../context/CartContext';
 import { useAuth } from '../../context/AuthContext';
 import Button from '../../components/common/Button';
 
+
+const shippingRates = {
+  // Free
+  'Lagos': 0,
+  // South West
+  'Ogun': 2500, 'Oyo': 2500, 'Osun': 2500, 'Ondo': 2500, 'Ekiti': 2500,
+  // South South
+  'Rivers': 3000, 'Delta': 3000, 'Bayelsa': 3000, 'Edo': 3000, 'Cross River': 3000, 'Akwa Ibom': 3000,
+  // South East
+  'Anambra': 4000, 'Enugu': 4000, 'Imo': 4000, 'Abia': 4000, 'Ebonyi': 4000,
+  // North
+  'Abuja': 3500, 'Kano': 4000, 'Kaduna': 4000, 'Kogi': 3500, 'Niger': 3500,
+  'Kwara': 3000, 'Benue': 4000, 'Nassarawa': 3500, 'Plateau': 4000,
+  'Sokoto': 4500, 'Zamfara': 4500, 'Kebbi': 4500, 'Katsina': 4500,
+  'Jigawa': 4500, 'Bauchi': 4500, 'Gombe': 4500, 'Yobe': 5000,
+  'Borno': 5000, 'Adamawa': 4500, 'Taraba': 4500,
+};
+
+const getShippingFee = (state) => {
+  if (!state) return 0;
+  const normalizedState = state.trim().replace(' State', '').replace(' state', '');
+  for (const [key, fee] of Object.entries(shippingRates)) {
+    if (normalizedState.toLowerCase().includes(key.toLowerCase()) || key.toLowerCase().includes(normalizedState.toLowerCase())) {
+      return fee;
+    }
+  }
+  return 3500; // default
+};
+
 const Checkout = () => {
   const { cart, total, clearCart } = useCart();
   const { user } = useAuth();
@@ -16,6 +45,8 @@ const Checkout = () => {
   const [uploading, setUploading] = useState(false);
   const [uploaded, setUploaded] = useState(false);
   const [trackingId, setTrackingId] = useState('');
+  const shippingFee = getShippingFee(deliveryInfo.state);
+  const grandTotal = total + shippingFee;
 
   const handleChange = (e) => {
     setDeliveryInfo({ ...deliveryInfo, [e.target.name]: e.target.value });
@@ -45,7 +76,8 @@ const Checkout = () => {
         headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
         body: JSON.stringify({
           items: cart,
-          total,
+          total: grandTotal,
+          shippingFee,
           address: `${deliveryInfo.address}, ${deliveryInfo.city}, ${deliveryInfo.state}`,
           phone: deliveryInfo.phone,
           email: deliveryInfo.email,
@@ -95,7 +127,7 @@ const Checkout = () => {
           <p className="mb-2 text-sm">Bank: <strong>United Bank For Africa (UBA)</strong></p>
           <p className="mb-2 text-sm">Account Number: <strong className="text-[#D4AF37] text-xl">1029768625</strong></p>
           <p className="mb-2 text-sm">Account Name: <strong>GOZY MASTERPIECE LIMITED</strong></p>
-          <p className="mt-4 pt-4 border-t border-slate-600 text-sm">Amount: <strong className="text-[#D4AF37]">₦{total.toLocaleString()}</strong></p>
+          <p className="mt-4 pt-4 border-t border-slate-600 text-sm">Amount: <strong className="text-[#D4AF37]">₦{grandTotal.toLocaleString()}</strong></p>
         </div>
         <div className="bg-slate-50 border border-slate-200 p-6 mb-6 text-left">
           <p className="font-bold text-[#001F3F] mb-2 text-sm">Upload Proof of Payment</p>
@@ -167,7 +199,58 @@ if (cart.length === 0) {
                 </div>
                 <div className="flex flex-col space-y-2">
                   <label className="text-[10px] uppercase tracking-[0.2em] font-bold text-slate-400">State *</label>
-                  <input type="text" name="state" value={deliveryInfo.state} onChange={handleChange} placeholder="e.g. Lagos State" className="w-full px-4 py-3 border border-slate-200 focus:border-[#D4AF37] outline-none" />
+                  <select name="state" value={deliveryInfo.state} onChange={handleChange} className="w-full px-4 py-3 border border-slate-200 focus:border-[#D4AF37] outline-none">
+                  <option value="">Select State</option>
+                  <option value="Lagos">Lagos (Free Delivery)</option>
+                  <optgroup label="South West - ₦2,500">
+                    <option value="Ogun">Ogun</option>
+                    <option value="Oyo">Oyo</option>
+                    <option value="Osun">Osun</option>
+                    <option value="Ondo">Ondo</option>
+                    <option value="Ekiti">Ekiti</option>
+                  </optgroup>
+                  <optgroup label="South South - ₦3,000">
+                    <option value="Rivers">Rivers</option>
+                    <option value="Delta">Delta</option>
+                    <option value="Bayelsa">Bayelsa</option>
+                    <option value="Edo">Edo</option>
+                    <option value="Cross River">Cross River</option>
+                    <option value="Akwa Ibom">Akwa Ibom</option>
+                  </optgroup>
+                  <optgroup label="South East - ₦4,000">
+                    <option value="Anambra">Anambra</option>
+                    <option value="Enugu">Enugu</option>
+                    <option value="Imo">Imo</option>
+                    <option value="Abia">Abia</option>
+                    <option value="Ebonyi">Ebonyi</option>
+                  </optgroup>
+                  <optgroup label="North Central - ₦3,500">
+                    <option value="Abuja">Abuja (FCT)</option>
+                    <option value="Kogi">Kogi</option>
+                    <option value="Niger">Niger</option>
+                    <option value="Kwara">Kwara</option>
+                    <option value="Benue">Benue</option>
+                    <option value="Nassarawa">Nassarawa</option>
+                    <option value="Plateau">Plateau</option>
+                  </optgroup>
+                  <optgroup label="North West - ₦4,500">
+                    <option value="Kano">Kano</option>
+                    <option value="Kaduna">Kaduna</option>
+                    <option value="Sokoto">Sokoto</option>
+                    <option value="Zamfara">Zamfara</option>
+                    <option value="Kebbi">Kebbi</option>
+                    <option value="Katsina">Katsina</option>
+                    <option value="Jigawa">Jigawa</option>
+                  </optgroup>
+                  <optgroup label="North East - ₦5,000">
+                    <option value="Bauchi">Bauchi</option>
+                    <option value="Gombe">Gombe</option>
+                    <option value="Yobe">Yobe</option>
+                    <option value="Borno">Borno</option>
+                    <option value="Adamawa">Adamawa</option>
+                    <option value="Taraba">Taraba</option>
+                  </optgroup>
+                </select>
                 </div>
               </div>
             </div>
@@ -191,8 +274,8 @@ if (cart.length === 0) {
             <h3 className="text-xs uppercase tracking-[0.2em] font-bold mb-6 text-slate-400">Order Summary</h3>
             <div className="space-y-4 text-sm mb-8">
               <div className="flex justify-between text-slate-600"><span>Subtotal</span><span>₦{total.toLocaleString()}</span></div>
-              <div className="flex justify-between text-slate-600"><span>Shipping</span><span className="text-green-600 font-bold uppercase text-[10px]">Free</span></div>
-              <div className="flex justify-between text-xl font-serif text-[#001F3F] pt-4 border-t border-slate-200"><span>Total</span><span>₦{total.toLocaleString()}</span></div>
+              <div className="flex justify-between text-slate-600"><span>Shipping</span><span className={shippingFee === 0 ? 'text-green-600 font-bold uppercase text-[10px]' : 'font-bold text-[#001F3F]'}>{shippingFee === 0 ? 'FREE' : '₦' + shippingFee.toLocaleString()}</span></div>
+              <div className="flex justify-between text-xl font-serif text-[#001F3F] pt-4 border-t border-slate-200"><span>Total</span><span>₦{grandTotal.toLocaleString()}</span></div>
             </div>
             <div className="bg-[#001F3F] text-white p-4 mb-6">
               <p className="text-[#D4AF37] text-xs uppercase tracking-widest mb-3">Payment via Bank Transfer</p>
