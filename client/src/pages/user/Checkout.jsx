@@ -6,20 +6,10 @@ import Button from '../../components/common/Button';
 
 
 const shippingRates = {
-  // Free
   'Lagos': 0,
-  // South West
   'Ogun': 2500, 'Oyo': 2500, 'Osun': 2500, 'Ondo': 2500, 'Ekiti': 2500,
-  // South South
   'Rivers': 3000, 'Delta': 3000, 'Bayelsa': 3000, 'Edo': 3000, 'Cross River': 3000, 'Akwa Ibom': 3000,
-  // South East
   'Anambra': 4000, 'Enugu': 4000, 'Imo': 4000, 'Abia': 4000, 'Ebonyi': 4000,
-  // North
-  'Abuja': 3500, 'Kano': 4000, 'Kaduna': 4000, 'Kogi': 3500, 'Niger': 3500,
-  'Kwara': 3000, 'Benue': 4000, 'Nassarawa': 3500, 'Plateau': 4000,
-  'Sokoto': 4500, 'Zamfara': 4500, 'Kebbi': 4500, 'Katsina': 4500,
-  'Jigawa': 4500, 'Bauchi': 4500, 'Gombe': 4500, 'Yobe': 5000,
-  'Borno': 5000, 'Adamawa': 4500, 'Taraba': 4500,
 };
 
 const getShippingFee = (state) => {
@@ -223,32 +213,6 @@ if (cart.length === 0) {
                     <option value="Imo">Imo</option>
                     <option value="Abia">Abia</option>
                     <option value="Ebonyi">Ebonyi</option>
-                  </optgroup>
-                  <optgroup label="North Central - ₦3,500">
-                    <option value="Abuja">Abuja (FCT)</option>
-                    <option value="Kogi">Kogi</option>
-                    <option value="Niger">Niger</option>
-                    <option value="Kwara">Kwara</option>
-                    <option value="Benue">Benue</option>
-                    <option value="Nassarawa">Nassarawa</option>
-                    <option value="Plateau">Plateau</option>
-                  </optgroup>
-                  <optgroup label="North West - ₦4,500">
-                    <option value="Kano">Kano</option>
-                    <option value="Kaduna">Kaduna</option>
-                    <option value="Sokoto">Sokoto</option>
-                    <option value="Zamfara">Zamfara</option>
-                    <option value="Kebbi">Kebbi</option>
-                    <option value="Katsina">Katsina</option>
-                    <option value="Jigawa">Jigawa</option>
-                  </optgroup>
-                  <optgroup label="North East - ₦5,000">
-                    <option value="Bauchi">Bauchi</option>
-                    <option value="Gombe">Gombe</option>
-                    <option value="Yobe">Yobe</option>
-                    <option value="Borno">Borno</option>
-                    <option value="Adamawa">Adamawa</option>
-                    <option value="Taraba">Taraba</option>
                   </optgroup>
                 </select>
                 </div>
