@@ -45,14 +45,14 @@ const ShippingPolicy = () => {
           </p>
         </section>
 
-        <section>
+        {/* <section>
           <h2 className="text-2xl font-serif text-[#001F3F] mb-4">Delivery Procedures</h2>
           <ul className="list-disc pl-6 space-y-2">
             <li>Signature required upon delivery for high-value items (₦50,000+)</li>
             <li>Please inspect your package before signing</li>
             <li>Report any damage or missing items immediately to our support team</li>
           </ul>
-        </section>
+        </section> */}
 
         <section>
           <h2 className="text-2xl font-serif text-[#001F3F] mb-4">International Shipping</h2>
