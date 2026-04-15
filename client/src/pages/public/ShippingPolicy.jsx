@@ -32,8 +32,8 @@ const ShippingPolicy = () => {
         <section>
           <h2 className="text-2xl font-serif text-[#001F3F] mb-4">Shipping Costs</h2>
           <ul className="list-disc pl-6 space-y-2">
-            <li><strong>Lagos:</strong> ₦2,500</li>
-            <li><strong>Other States:</strong> south East ₦4000, South South ₦3,000 South East ₦2,500</li>
+            <li><strong>Lagos:</strong> Free Delivery</li>
+            <li><strong>Other States:</strong> south East ₦4000, South South ₦3,000 South West ₦2,500</li>
           </ul>
         </section>
 
