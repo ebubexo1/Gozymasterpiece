@@ -18,8 +18,10 @@ const ShippingPolicy = () => {
         <section>
           <h2 className="text-2xl font-serif text-[#001F3F] mb-4">Delivery Timeline</h2>
           <ul className="list-disc pl-6 space-y-2">
-            <li><strong>Within Lagos:</strong> 1-2 business days</li>
-            <li><strong>Outside Lagos:</strong> 3-5 business days</li>
+            <li><strong>Within Lagos:</strong> 1-2 business days (Free Delivery)</li>
+            <li><strong>South West (Ogun, Oyo, Osun, Ondo, Ekiti):</strong> 2-3 business days - ₦2,500</li>
+            <li><strong>South South (Rivers, Delta, Edo, Bayelsa, Cross River, Akwa Ibom):</strong> 3-4 business days - ₦3,000</li>
+            <li><strong>South East (Anambra, Enugu, Imo, Abia, Ebonyi):</strong> 3-5 business days - ₦4,000</li>
           </ul>
           <p className="mt-4">
             Orders are processed within 24 hours. You will receive a tracking number via email once 

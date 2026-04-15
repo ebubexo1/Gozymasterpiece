@@ -115,8 +115,8 @@ const Checkout = () => {
         <div className="bg-[#001F3F] text-white p-8 mb-6 text-left">
           <p className="text-[#D4AF37] text-xs uppercase tracking-widest mb-4">Complete Your Payment</p>
           <p className="mb-2 text-sm">Bank: <strong>United Bank For Africa (UBA)</strong></p>
-          <p className="mb-2 text-sm">Account Number: <strong className="text-[#D4AF37] text-xl">1029768625</strong></p>
-          <p className="mb-2 text-sm">Account Name: <strong>GOZY MASTERPIECE LIMITED</strong></p>
+          <p className="mb-2 text-sm">Account Number: <strong className="text-[#D4AF37] text-xl">6202581943</strong></p>
+          <p className="mb-2 text-sm">Account Name: <strong>Gozy Resources</strong></p>
           <p className="mt-4 pt-4 border-t border-slate-600 text-sm">Amount: <strong className="text-[#D4AF37]">₦{grandTotal.toLocaleString()}</strong></p>
         </div>
         <div className="bg-slate-50 border border-slate-200 p-6 mb-6 text-left">
@@ -244,8 +244,8 @@ if (cart.length === 0) {
             <div className="bg-[#001F3F] text-white p-4 mb-6">
               <p className="text-[#D4AF37] text-xs uppercase tracking-widest mb-3">Payment via Bank Transfer</p>
               <p className="text-sm">Bank: <strong>UBA</strong></p>
-              <p className="text-sm">Account: <strong className="text-[#D4AF37]">1029768625</strong></p>
-              <p className="text-sm">Name: <strong>GOZY MASTERPIECE LIMITED</strong></p>
+              <p className="text-sm">Account: <strong className="text-[#D4AF37]">6202581943</strong></p>
+              <p className="text-sm">Name: <strong>Gozy Resources</strong></p>
             </div>
             <Button variant="primary" className="w-full py-4" onClick={handlePlaceOrder}>
               {loading ? 'Placing Order...' : 'Place Order'}
