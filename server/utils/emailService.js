@@ -68,4 +68,16 @@ const sendAdminNewOrder = async (customerName, customerEmail, order) => {
   } catch(e) { console.error('Admin email error:', e.message); }
 };
 
-module.exports = { sendOrderConfirmation, sendPaymentConfirmation, sendStatusUpdate, sendPasswordReset, sendAdminNewOrder };
+
+const sendContactMessage = async (name, email, message) => {
+  try {
+    await resend.emails.send({
+      from: 'Gozy Resources <onboarding@resend.dev>',
+      to: 'gozymasterpiece@gmail.com',
+      subject: 'New Contact Message from ' + name,
+      html: '<div style="font-family:Georgia,serif;max-width:600px;margin:auto"><div style="background:#001F3F;padding:30px;text-align:center"><h1 style="color:#D4AF37;margin:0">NEW MESSAGE</h1></div><div style="padding:30px"><h2 style="color:#001F3F">From: ' + name + '</h2><p>Email: <a href="mailto:' + email + '">' + email + '</a></p><div style="background:#f9f9f9;padding:20px;margin-top:20px"><p style="color:#001F3F">' + message + '</p></div></div></div>'
+    });
+  } catch(e) { console.error('Contact email error:', e.message); }
+};
+
+module.exports = { sendOrderConfirmation, sendPaymentConfirmation, sendStatusUpdate, sendPasswordReset, sendAdminNewOrder, sendContactMessage };

@@ -9,3 +9,14 @@ router.post('/forgot-password', forgotPassword);
 router.post('/reset-password', resetPassword);
 router.post('/google', googleAuth);
 module.exports = router;
+
+router.post('/contact', async (req, res) => {
+  try {
+    const { name, email, message } = req.body;
+    const { sendContactMessage } = require('../utils/emailService');
+    await sendContactMessage(name, email, message);
+    res.json({ message: 'Message sent successfully' });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
