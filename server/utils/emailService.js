@@ -80,4 +80,16 @@ const sendContactMessage = async (name, email, message) => {
   } catch(e) { console.error('Contact email error:', e.message); }
 };
 
-module.exports = { sendOrderConfirmation, sendPaymentConfirmation, sendStatusUpdate, sendPasswordReset, sendAdminNewOrder, sendContactMessage };
+
+const sendProofUploadNotification = async (order) => {
+  try {
+    await resend.emails.send({
+      from: 'Gozy Resources <onboarding@resend.dev>',
+      to: 'gozymasterpiece@gmail.com',
+      subject: 'Payment Proof Uploaded - ' + order.trackingId,
+      html: '<div style="font-family:Georgia,serif;max-width:600px;margin:auto"><div style="background:#001F3F;padding:30px;text-align:center"><h1 style="color:#D4AF37;margin:0">PROOF OF PAYMENT</h1></div><div style="padding:30px"><h2 style="color:#001F3F">Customer uploaded payment proof</h2><p><strong>Tracking ID:</strong> ' + order.trackingId + '</p><p><strong>Amount:</strong> ₦' + Number(order.total).toLocaleString() + '</p><p><strong>Phone:</strong> ' + order.phone + '</p><p><strong>Address:</strong> ' + order.address + '</p><div style="margin-top:20px"><a href="https://gozymasterpiece.vercel.app/admin/dashboard" style="background:#001F3F;color:#D4AF37;padding:14px 30px;text-decoration:none;font-size:14px;letter-spacing:2px;text-transform:uppercase">View in Admin Dashboard</a></div></div></div>'
+    });
+  } catch(e) { console.error('Proof notification error:', e.message); }
+};
+
+module.exports = { sendOrderConfirmation, sendPaymentConfirmation, sendStatusUpdate, sendPasswordReset, sendAdminNewOrder, sendContactMessage, sendProofUploadNotification };

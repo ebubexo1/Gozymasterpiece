@@ -48,6 +48,10 @@ router.post('/:id/proof', async (req, res) => {
       if (!order) return res.status(404).json({ message: 'Order not found' });
       order.proofOfPayment = req.file.path;
       await order.save();
+      try {
+        const { sendProofUploadNotification } = require('../utils/emailService');
+        await sendProofUploadNotification(order);
+      } catch(e) { console.error('Proof email error:', e.message); }
       res.json({ message: 'Proof uploaded successfully', order });
     });
   } catch (error) {
