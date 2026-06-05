@@ -1,4 +1,4 @@
-import React from 'react';
+ import React from 'react'; 
 
 const ShippingPolicy = () => {
   return (
@@ -58,7 +58,7 @@ const ShippingPolicy = () => {
           <h2 className="text-2xl font-serif text-[#001F3F] mb-4">International Shipping</h2>
           <p>
             Currently, we only ship within Nigeria. International shipping will be available soon. 
-            Subscribe to our newsletter to be notified when we expand our delivery areas.
+            Subscribe to our newsletter to be notified when we expand our delivery areas forcasting and imaginary.
           </p>
         </section>
 

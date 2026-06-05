@@ -2,19 +2,19 @@ const express = require('express');
 const router = express.Router();
 const { getProducts, getProduct, createProduct, updateProduct, deleteProduct } = require('../controllers/productController');
 const protect = require('../middleware/auth');
+const admin = require('../middleware/admin');
+const Product = require('../models/Product');
 
 router.get('/', getProducts);
 router.get('/:id', getProduct);
-router.post('/', protect, createProduct);
-router.put('/:id', protect, updateProduct);
-router.delete('/:id', protect, deleteProduct);
+router.post('/', protect, admin, createProduct);
+router.put('/:id', protect, admin, updateProduct);
+router.delete('/:id', protect, admin, deleteProduct);
 
-module.exports = router;
-
+// Any logged-in user can review a product once.
 router.post('/:id/reviews', protect, async (req, res) => {
   try {
     const { rating, comment } = req.body;
-    const Product = require('../models/Product');
     const product = await Product.findById(req.params.id);
     if (!product) return res.status(404).json({ message: 'Product not found' });
     const alreadyReviewed = product.reviews.find(r => r.user.toString() === req.user.id.toString());
@@ -29,4 +29,5 @@ router.post('/:id/reviews', protect, async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
+
 module.exports = router;

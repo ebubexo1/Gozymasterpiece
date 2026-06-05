@@ -9,6 +9,7 @@ const ConfirmDelivery = () => {
   const [loading, setLoading] = useState(true);
   const [confirming, setConfirming] = useState(false);
   const [confirmed, setConfirmed] = useState(false);
+  const [code, setCode] = useState('');
   const [error, setError] = useState('');
 
   useEffect(() => {
@@ -28,15 +29,17 @@ const ConfirmDelivery = () => {
   }, [trackingId]);
 
   const handleConfirm = async () => {
+    setError('');
+    if (!code.trim()) { setError('Enter the delivery code the customer gave you'); return; }
     setConfirming(true);
     try {
       const response = await fetch(`${API_URL}/orders/${order._id}/confirm-delivery`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ confirmed: true })
+        body: JSON.stringify({ code: code.trim() })
       });
       const data = await response.json();
-      if (!response.ok) throw new Error(data.message);
+      if (!response.ok) throw new Error(data.message || 'Could not confirm');
       setConfirmed(true);
     } catch (err) {
       setError(err.message);
@@ -51,7 +54,7 @@ const ConfirmDelivery = () => {
     </div>
   );
 
-  if (error) return (
+  if (error && !order) return (
     <div className="h-screen flex items-center justify-center">
       <p className="text-red-500">{error}</p>
     </div>
@@ -97,13 +100,25 @@ const ConfirmDelivery = () => {
           This order has already been delivered ✅
         </div>
       ) : (
-        <button
-          onClick={handleConfirm}
-          disabled={confirming}
-          className="w-full bg-[#001F3F] text-white py-4 uppercase text-xs tracking-widest font-bold"
-        >
-          {confirming ? 'Confirming...' : 'I Delivered This Order ✓'}
-        </button>
+        <div>
+          <label className="text-[10px] uppercase tracking-[0.2em] font-bold text-slate-400">Delivery Code</label>
+          <input
+            type="text"
+            inputMode="numeric"
+            value={code}
+            onChange={(e) => { setCode(e.target.value); setError(''); }}
+            placeholder="4-digit code from the customer"
+            className="w-full px-4 py-3 border border-slate-200 focus:border-[#D4AF37] outline-none mb-2 mt-2 text-center text-2xl tracking-widest"
+          />
+          {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
+          <button
+            onClick={handleConfirm}
+            disabled={confirming}
+            className="w-full bg-[#001F3F] text-white py-4 uppercase text-xs tracking-widest font-bold"
+          >
+            {confirming ? 'Confirming...' : 'I Delivered This Order ✓'}
+          </button>
+        </div>
       )}
     </div>
   );

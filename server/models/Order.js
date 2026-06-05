@@ -1,4 +1,4 @@
-﻿const mongoose = require('mongoose');
+const mongoose = require('mongoose');
 const orderSchema = new mongoose.Schema({
   user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
   items: [{ product: String, name: String, price: Number, quantity: Number, image: String }],
@@ -7,11 +7,11 @@ const orderSchema = new mongoose.Schema({
   trackingId: { type: String },
   deliveryType: { type: String, enum: ['local_dispatch', 'shipping'], default: 'local_dispatch' },
   deliveryCode: { type: String },
-  rider: { name: { type: String }, phone: { type: String },
+  rider: { name: { type: String }, phone: { type: String } },
+  shipping: { company: { type: String }, trackingNumber: { type: String } },
   proofOfPayment: { type: String },
   customerEmail: { type: String },
-  customerName: { type: String } },
-  shipping: { company: { type: String }, trackingNumber: { type: String } },
+  customerName: { type: String },
   reference: { type: String },
   paymentMethod: { type: String },
   address: { type: String },
